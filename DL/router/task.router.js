@@ -39,4 +39,21 @@ router.delete('/:id', async (req, res) => {
 })
 
 
+
+
+
+router.put('/doneAll', async (req, res) => {
+    try {
+        let done = await taskService.doneAll()
+        res.send("done all")
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    await taskService.done(req.params.id) // 10
+    res.send("done")
+})
+
 module.exports = router

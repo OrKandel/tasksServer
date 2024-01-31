@@ -18,10 +18,17 @@ async function delAll() {
     return await taskModel.updateMany({}, { isDelete: true });
 }
 
+async function done(id) {
+    return await taskModel.findByIdAndUpdate(id, { isDone: true })
+}
+
+async function doneAll() {
+    return await taskModel.updateMany({}, { isDone: true });
+}
 
 async function done(id) {
     return await taskModel.updateOne({ _id: id }, { isDone: true })
 }
 
 
-module.exports = { create, read, del, delAll, done }
+module.exports = { create, read, del, delAll, done, doneAll }

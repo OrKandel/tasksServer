@@ -20,10 +20,24 @@ async function delAll() {
     return task
 }
 
+async function done(id) {
+
+    let task = await taskController.done(id)
+    return task
+}
+
+async function doneAll() {
+
+    let task = await taskController.doneAll()
+    return task
+}
+
+
+
 async function addNewtask(reqData) {
     let data = await taskController.create(reqData)
     return data
 
 
 }
-module.exports = { addNewtask, getAlltasks, del, delAll }
+module.exports = { addNewtask, getAlltasks, del, delAll, doneAll, done }
