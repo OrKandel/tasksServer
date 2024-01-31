@@ -10,20 +10,33 @@ router.get('/', async (req, res) => {
     res.send(tasks)
 })
 // add task
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     console.log(req.body);
-
+    // const {details , date}=req.body
+    await taskService.addNewtask(req.body)
+    res.send("sucsses")
     // TODO
 
 })
+router.delete('/deleteAll', async (req, res) => {
+    try {
+        let del = await taskService.delAll()
+        res.send("delete all")
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 
 router.delete('/:id', async (req, res) => {
-    const tasks = await taskService.getAlltasks()
-    let pos = tasks.findIndex(t => t._id == req.params.id)
-    if (pos == -1) res.sendStatus(404)
+    // const tasks = await taskService.getAlltasks()
+    // console.log(req.params.id)
+    // let pos = tasks.findIndex(t => t._id == req.params.id)
+    // console.log(pos)
+    // if (pos == -1) res.sendStatus(404)
 
-    delete tasks[pos] // 10
+    await taskService.del(req.params.id) // 10
     res.send("delete")
 })
+
 
 module.exports = router

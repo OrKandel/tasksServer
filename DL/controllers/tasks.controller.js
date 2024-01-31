@@ -1,7 +1,7 @@
 const taskModel = require('../models/tasks.model')
 
-async function create(data) {
-    return await taskModel.create(data)
+async function create(reqData) {
+    return await taskModel.create(reqData)
 }
 
 async function read(filter) {
@@ -11,12 +11,17 @@ async function read(filter) {
 }
 
 async function del(id) {
-    return await taskModel.updateOne({ _id: id }, { isDelete: true })
+    return await taskModel.findByIdAndUpdate(id, { isDelete: true })
 }
+
+async function delAll() {
+    return await taskModel.updateMany({}, { isDelete: true });
+}
+
 
 async function done(id) {
     return await taskModel.updateOne({ _id: id }, { isDone: true })
 }
 
 
-module.exports = { create, read, del }
+module.exports = { create, read, del, delAll, done }
